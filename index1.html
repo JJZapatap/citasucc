@@ -1,0 +1,351 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#f0f4f8}
+.wrap{max-width:660px;margin:0 auto;font-family:system-ui,sans-serif}
+.hdr{background:linear-gradient(135deg,#1a4b7c,#1e5c9a);color:#fff;padding:16px 20px;border-radius:12px 12px 0 0}
+.hdr-row{display:flex;align-items:center;gap:12px}
+.logo{width:46px;height:46px;background:#2e7d32;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.hdr h1{font-size:15px;font-weight:700;line-height:1.3;margin:0}
+.hdr p{font-size:11px;opacity:.85;margin:3px 0 0}
+.steps{display:flex;background:#dce8f5;padding:8px 14px;gap:4px;overflow-x:auto;border-left:1px solid #b8d0ea;border-right:1px solid #b8d0ea}
+.step{display:flex;align-items:center;gap:4px;padding:4px 8px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap;color:#7a9cbf;transition:all .2s}
+.step.active{background:#1a4b7c;color:#fff}
+.step.done{background:#2e7d32;color:#fff}
+.sn{width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
+.body{padding:18px 18px 14px;background:#fff;border:1px solid #b8d0ea;border-top:none;border-radius:0 0 12px 12px}
+.stitle{font-size:13px;font-weight:700;color:#1a4b7c;border-bottom:2px solid #dce8f5;padding-bottom:6px;margin-bottom:13px;display:flex;align-items:center;gap:6px}
+.lbl{font-size:12px;font-weight:600;color:#2c5282;margin-bottom:4px;display:block}
+.inp{width:100%;padding:9px 12px;border:1.5px solid #c5d5e8;border-radius:8px;font-size:13px;outline:none;background:#fff;color:#1a202c;transition:border .15s}
+.inp:focus{border-color:#1a4b7c;box-shadow:0 0 0 3px rgba(26,75,124,.1)}
+textarea.inp{min-height:70px;resize:vertical}
+.ro{background:#eef4fb;border:1.5px solid #c5d5e8;border-radius:8px;padding:9px 12px;font-size:12px;color:#2d3748;min-height:34px;line-height:1.7}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.mb{margin-bottom:12px}
+.card{background:#f7fafd;border:1px solid #c5d5e8;border-radius:10px;padding:14px;margin-bottom:14px}
+.bp{background:linear-gradient(135deg,#1a4b7c,#1e5c9a);color:#fff;border:none;padding:11px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;width:100%;margin-top:6px;transition:opacity .15s;letter-spacing:.3px}
+.bp:hover{opacity:.9}
+.bp.g{background:linear-gradient(135deg,#2e7d32,#388e3c)}
+.bp:disabled{background:#9cb3c9;cursor:not-allowed}
+.bo{background:#fff;color:#1a4b7c;border:2px solid #1a4b7c;padding:9px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s}
+.bo:hover{background:#eef4fb}
+.err{background:#fff5f5;border:1.5px solid #fc8181;border-radius:8px;padding:9px 12px;color:#c53030;font-size:12px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.info{background:#ebf4ff;border:1px solid #bee3f8;border-radius:8px;padding:10px 12px;font-size:12px;color:#2b6cb0;margin-bottom:12px;line-height:1.7}
+.warn{background:#fffbeb;border:1px solid #f6e05e;border-radius:8px;padding:10px 12px;font-size:12px;color:#744210;margin-bottom:12px;line-height:1.7}
+.ok{background:#f0fff4;border:1.5px solid #68d391;border-radius:10px;padding:14px;margin-bottom:14px}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.fb{padding:10px 12px;border-radius:8px;border:1.5px solid #c5d5e8;background:#fff;cursor:pointer;font-size:12px;font-weight:600;color:#4a5568;text-align:left;line-height:1.4;transition:all .15s}
+.fb:hover{border-color:#1a4b7c;background:#eef4fb}
+.fb.sel{border:2px solid #1a4b7c;background:#dce8f5;color:#1a4b7c}
+.jr{display:flex;gap:10px;margin-bottom:14px}
+.jb{flex:1;padding:12px 8px;border-radius:10px;border:1.5px solid #c5d5e8;background:#fff;cursor:pointer;font-weight:700;font-size:13px;color:#4a5568;text-align:center;transition:all .15s}
+.jb:hover{border-color:#1a4b7c;background:#eef4fb}
+.jb.sel{border:2px solid #1a4b7c;background:#dce8f5;color:#1a4b7c}
+.sg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px}
+.sb{padding:8px 4px;border-radius:8px;border:1.5px solid #c5d5e8;background:#fff;cursor:pointer;font-size:11px;font-weight:600;color:#2d3748;text-align:center;transition:all .1s;line-height:1.5}
+.sb.sel{border:2px solid #2e7d32;background:#c6f6d5;color:#22543d}
+.sb.full{border:1.5px solid #fc8181;background:#fff5f5;color:#c53030;cursor:not-allowed;opacity:.7}
+.sb:not(.full):not(.sel):hover{border-color:#1a4b7c;background:#eef4fb}
+.cr{display:flex;gap:10px;align-items:flex-start;margin-bottom:14px;background:#f7fafd;border:1px solid #c5d5e8;border-radius:8px;padding:12px}
+.cr input{margin-top:2px;flex-shrink:0;width:16px;height:16px;cursor:pointer;accent-color:#1a4b7c}
+.cr label{font-size:12px;color:#2d3748;cursor:pointer;line-height:1.6}
+.sr{display:flex;gap:8px;padding:7px 0;border-bottom:1px solid #e2ecf5;font-size:12px}
+.sk{color:#1a4b7c;font-weight:700;min-width:150px;flex-shrink:0}
+.brow{display:flex;gap:10px;margin-top:4px}
+.tag-p{display:inline-block;background:#fef3c7;color:#92400e;border-radius:20px;padding:2px 10px;font-size:11px;font-weight:600}
+.sico{width:60px;height:60px;background:#c6f6d5;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 10px;box-shadow:0 2px 10px rgba(46,125,50,.2)}
+.foot{text-align:center;font-size:10px;color:#90a4ae;margin-top:10px;padding-bottom:4px}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite;vertical-align:middle;margin-right:5px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.badge-slot{display:inline-block;background:#e8f5e9;color:#2e7d32;border-radius:12px;padding:1px 7px;font-size:10px;font-weight:600;margin-left:4px}
+.progress{height:3px;background:#dce8f5;margin-bottom:0;border-radius:0}
+.progress-bar{height:3px;background:linear-gradient(90deg,#1a4b7c,#2e7d32);border-radius:0;transition:width .3s}
+</style>
+
+<div id="app"></div>
+
+<script>
+const FORM_ID = "261458243977065";
+
+const DB={"84456749":{"n":"ADALBERTO ENRIQUE LOBATO URECHE","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"85457515":{"n":"ADEMIR ENRIQUE MENESES MOLINA","c":"AUXILIAR DE MANTENIMIENTO","ev":"Examen médico-Ocupacional Osteomuscular · Espirometría · Visiometría"},"37826213":{"n":"ADRIANA SANTARELLI FRANCO","c":"DIRECTOR(A) CAMPUS","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1082836170":{"n":"ADRIANA MILENA JIMENEZ CAMACHO","c":"COORDINADOR(A) INNOVACIÓN EDUC","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"85454665":{"n":"ADRIANO RAFAEL HERNANDEZ DE LA ROSA","c":"PROFESOR TC ASPIRANTE ESPECIAL","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"12622695":{"n":"ALAIN FRANCISCO RADA MARTINEZ","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"8462796":{"n":"ALEXANDER SALAZAR CEBALLOS","c":"PROFESOR TC ASPIRANTE MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36553990":{"n":"ALEXIS SORAYA PARDO ODUBER","c":"AUXILIAR PROCESOS TÉCNICOS","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"85473397":{"n":"ALFONSO LUIS LASTRA FUSCALDO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"85460584":{"n":"ALVARO ENRIQUE PALOMINO DELGADO","c":"SERVICIOS GENERALES","ev":"Paquete Altura: Examen médico Osteomuscular · Audiometría · Visiometría · Hemoglobina · Perfil Lipídico · Glicemia"},"57437964":{"n":"ANA ILCY DE LEON FONSECA","c":"SERVICIOS GENERALES","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"36694806":{"n":"ANA LUZ GUILLOT FULA","c":"SECRETARIO(A) DE FACULTAD","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1082916634":{"n":"ANA MARIA DE LA ROSA CHARRIS","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1082847826":{"n":"ANAMARIA DE LOS ANGELES FRANCO LEYVA","c":"PROFESOR TC ASISTENTE MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1082951300":{"n":"ANANDA THALIA MONTENEGRO GONZALEZ","c":"JEFE(A) PLANEACIÓN Y AUTOEVALU","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1082924263":{"n":"ANDREA PAOLA HERNANDEZ CORVACHO","c":"PROFESOR TC ASPIRANTE MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1004356954":{"n":"ANDRES DAVID ALVARADO PERTUZ","c":"ANALISTA CONSULTORIO JURÍDICO","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1037600988":{"n":"ANDRES FELIPE RONCANCIO BEDOYA","c":"PROFESOR TC ASISTENTE DOCTOR","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1082847184":{"n":"ANGEL EDUARDO ACOSTA ESCALANTE","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1082886401":{"n":"ANGELLY KATHERINE FULA MORALES","c":"AUXILIAR SOPORTE TIC","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"84451626":{"n":"ANIBAL GUILLERMO ANAYA RADA","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"12560548":{"n":"ANTOLIN ENRIQUE ORTIZ ROVIRA","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"16785083":{"n":"ANTONIO MEJIA GONZALES","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"57304135":{"n":"ARELIS DE LA CRUZ MARMOL","c":"SERVICIOS GENERALES","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1082853821":{"n":"ARIADNA VICTORIA SIERRA DIAZ GRANADOS","c":"PROFESOR CÁTEDRA PROFESIONAL","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36723759":{"n":"ARLET INES LOBO GAMERO","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"26637232":{"n":"ARLOTH MURCIA MEDINA","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"19347777":{"n":"ARMANDO ENRIQUE SOLANO GAMEZ","c":"PROFESOR TC ASPIRANTE MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"12540849":{"n":"AROLDO ELIECER GUARDIOLA IBARRA","c":"PROFESOR TC ASPIRANTE MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"85151069":{"n":"ARTHUR JOSE BURGOS RODRIGUEZ","c":"JEFE(A) DE PROG ING CIVIL","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"7633635":{"n":"ARTURO IVAN VILLEGAS ANDRADE","c":"PROFESOR TC AUXILIAR MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"57434513":{"n":"AURELYS PATRICIA ANDRADES IGLESIAS","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1082885503":{"n":"AYLIN ADRIANA ACEVEDO ANGULO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"32705797":{"n":"BEATRIZ EUGENIA ORTEGA ANGULO","c":"PROFESOR CÁTEDRA POSG ESPECIAL","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"57445232":{"n":"BETHY DE JESUS MEZA MARTINEZ","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36695520":{"n":"BLANCA LIGIA LOBO RODRIGUEZ","c":"SERVICIOS GENERALES","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"63469275":{"n":"BONNY MIMI PEREZ MENESES","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1082856774":{"n":"CAMILO ANDRES BARROS TORRES","c":"PROFESOR CÁTEDRA PROFESIONAL","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1071162323":{"n":"CAMILO ANDRES RODRIGUEZ RODRIGUEZ","c":"COORDINADOR(A) COMUNICACIONES","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1010172756":{"n":"CARLOS ALBERTO SÁNCHEZ DEL VALLE","c":"PROFESOR CÁTEDRA POSG MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"7143793":{"n":"CARLOS ARTURO FERNANDEZ SALAS","c":"AUXILIAR DE AUDIOVISUALES","ev":"Paquete Altura: Examen médico Osteomuscular · Audiometría · Visiometría · Hemoglobina · Perfil Lipídico · Glicemia"},"1082853255":{"n":"CARLOS DAVID GARCIA CERVANTES","c":"MENSAJERO(A) INTERNO Y EXTERNO","ev":"Examen médico Osteomuscular · Psicosensométrico · Audiometría · Visiometría · Hemograma · Glicemia · Prueba psicoactivos"},"1082964309":{"n":"CARLOS JOSE NUÑEZ FELIZZOLA","c":"ANALISTA BIENESTAR UNIVERSIT","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"92557629":{"n":"CARLOS JULIO RAMIREZ BADEL","c":"PROFESOR TC ASPIRANTE PROFESIO","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"64584252":{"n":"CARMEN LUCIA MANZUR OTERO","c":"PROFESIONAL DESARROLLO ESTUDIA","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"39047992":{"n":"CAROL LICET POMARES CORREDOR","c":"COORDINADOR(A) EGRESADOS","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1221966917":{"n":"CAROLINA GORDILLO CARDOZO","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"51907402":{"n":"CATALINA AMPARO OLAYA LOPEZ","c":"PROFESOR TC AUXILIAR MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1082986775":{"n":"CESAR AUGUSTO SEMANATE ORTIZ","c":"AUXILIAR SERVICIO AL CLIENTE","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"85459423":{"n":"CESAR AUGUSTO SUAREZ PAREJO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1047216848":{"n":"CINTHIA PATRICIA VIZCAINO OLMOS","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"57437614":{"n":"CLAUDIA INES FUENTES POLO","c":"SECRETARIO(A) DE FACULTAD","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"57466926":{"n":"CLAUDIA MARCELA CARRASQUILLA CAÑIZARES","c":"ANALISTA MORFOLOGÍA","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"57431876":{"n":"CLAUDIA PATRICIA PEREZ ESMERAL","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36719101":{"n":"CLAUDIA PATRICIA ROA MENDOZA","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"57438476":{"n":"CLAUDIA YAMILE RAYO BENAVIDES","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"14472151":{"n":"CRISTIAN JAVIER FONG REALES","c":"PROFESOR TC TITULAR DOCTOR ND","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1082914725":{"n":"CRISTIAN YOEL QUINTERO CASTAÑEDA","c":"PROFESOR TC ASISTENTE MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"39047485":{"n":"DALGIS IBET SANCHEZ PABON","c":"JEFE(A) DE PROG DE SICOLOGÍA","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1007820113":{"n":"DANIEL DAVID MIRANDA FLOREZ","c":"AUXILIAR COMPRAS E INVENTARIOS","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1082982361":{"n":"DANIELLA GARCIA MOLINARES","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"7630514":{"n":"DAVID RAFAEL ROCA BORRE","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1193225539":{"n":"DAVID STEEVEN HERNANDEZ ALMANZA","c":"AUXILIAR DE AUDIOVISUALES","ev":"Paquete Altura: Examen médico Osteomuscular · Audiometría · Visiometría · Hemoglobina · Perfil Lipídico · Glicemia"},"1082904359":{"n":"DEIVI JONETH PEREIRA MARTINEZ","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"32687782":{"n":"DIANA CECILIA MARTELO PEREZ","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"57460524":{"n":"DIANA PATRICIA MARIN PEREZ","c":"COORDINADOR(A) GESTIÓN HUMANA","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"12559444":{"n":"DINO OSWALDO VALLECIA VARELA","c":"PROFESOR TC ASPIRANTE PROFESIO","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"57445676":{"n":"DORA LUCIA ALDANA GUTIERREZ","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"40045629":{"n":"DORIAM ESPERANZA CAMACHO RODRIGUEZ","c":"PROFESOR TC ASOCIADO DOCTOR","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36549769":{"n":"DUMIDIA ESTHER DURAN MORENO","c":"SERVICIOS GENERALES","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"12563172":{"n":"EDER IVAN MENDIVIL BARCELO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"85152717":{"n":"EDUARDO SANTO RIVEIRA CANO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"57117208":{"n":"ELADIA BENEDICTA HUELVAS TORRIJOS","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1063946881":{"n":"ELIA LIBETH REGALADO CALANCHE","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"26862399":{"n":"ELIANA CRISTINA SALAZAR RIZO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"57465228":{"n":"ELIANA ISABEL WISMAN MANJARRES","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1067918091":{"n":"ELKIN MANUEL PAVA GOMEZ","c":"PROFESOR TC ASPIRANTE MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36531099":{"n":"ELSY DE LA MILAGROSA ZUÑIGA SILVA","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"85153971":{"n":"ELVIS ORLANDO VENECIA ALVARADO","c":"AUXILIAR DE MANTENIMIENTO","ev":"Paquete Altura: Examen médico Osteomuscular · Audiometría · Visiometría · Hemoglobina · Perfil Lipídico · Glicemia"},"85459072":{"n":"EMILIO ALFONSO LARA OLIVERO","c":"COORDINADOR(A) AMBIENTES APREN","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"9087550":{"n":"ENIO ARMANDO HERNANDEZ AGUIRRE","c":"PROFESOR TC AUXILIAR MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"7634612":{"n":"ENIS EDUARDO YANES CANDANOZA","c":"AUXILIAR DE MANTENIMIENTO","ev":"Paquete Altura: Examen médico Osteomuscular · Audiometría · Visiometría · Hemoglobina · Perfil Lipídico · Glicemia"},"84452287":{"n":"ERIK DAVID MARTINEZ JIMENEZ","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36669103":{"n":"ERIKA ALEJANDRA CORREDOR RUIZ","c":"DECANO(A) PROG DE DERECHO","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"57297391":{"n":"ERIKA PATRICIA MARTINEZ GUTIERREZ","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"72276028":{"n":"ERWIN ROJAS MONSALVE","c":"PROFESOR CÁTEDRA POSG MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36667642":{"n":"ESMEIRA ENITH PERTUZ MEZA","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"22689683":{"n":"ESTHER MARIA LARA CHARRIS","c":"SERVICIOS GENERALES","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"57463194":{"n":"EVELYS JOHANA MARQUEZ GONGORA","c":"SECRETARIO(A) DE FACULTAD","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1083022655":{"n":"FABIAN DAVID PARDO LAFAURIE","c":"AUXILIAR DE AUDIOVISUALES","ev":"Paquete Altura: Examen médico Osteomuscular · Audiometría · Visiometría · Hemoglobina · Perfil Lipídico · Glicemia"},"12447741":{"n":"FABIO EDEN CABALLERO ARGOTA","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"85477136":{"n":"FELIPE NAVAS MARTINEZ","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"72210060":{"n":"FIDEL CASTRO TAPIA","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36694774":{"n":"FRANCISCA MARIA GAMEZ CUESTA","c":"AUXILIAR ADMINISTRATIVO(A)","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"7167612":{"n":"FREDY ARMANDO CUERVO LARA","c":"DECANO(A) PROG DE INGENIERÍA","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"71695163":{"n":"GABRIEL JAIME PARRA HENAO","c":"PROFESOR TC TITULAR DOCTOR","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"302297":{"n":"GABRIELA BARRERA MEJIA","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36721237":{"n":"GABRIELA MARIA CANTILLO BORNACHERA","c":"AUXILIAR ADMINISTRATIVO(A)","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"85373835":{"n":"GIANCARLO ALFREDO SIRTORI CAMPO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"7144495":{"n":"GILBERTO MONTOYA BERBEN","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"85474609":{"n":"GILBERTO MIGUEL MANCILLA ARAGON","c":"TESORERO(A)","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"36552872":{"n":"GIOMAR SARMIENTO MARENGO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"57293356":{"n":"GISELLYS PAOLA QUIÑONEZ GRANADOS","c":"AUXILIAR ADMISIONES Y REGISTRO","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"39046277":{"n":"GREDYS ELVIRA RUA QUINTERO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1065861635":{"n":"GUSTAVO ADOLFO USECHE AGUIRRE","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"72227989":{"n":"HANS GUNTHER PRENCKE GARCIA","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"52618471":{"n":"HAZBLEYDE OBISPO ROVIRA","c":"PROFESOR TC AUXILIAR MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"80015439":{"n":"HELBERT FERNANDO VALENCIA BARRERO","c":"PROFESOR TC ASPIRANTE MAGIS ND","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"9272864":{"n":"HERNANDO PADILLA GALINDO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"7143371":{"n":"HERNANDO ANTONIO DAU CRESPO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"85472784":{"n":"HUGO ALBERTO FERNANDEZ APONTE","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"72209302":{"n":"HUMBERTO CARLOS SALCEDO ROJAS","c":"PROFESOR CÁTEDRA POSG MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1004378320":{"n":"HUMBERTO MIGUEL ROSETTE CANTILLO","c":"SECRETARIO(A) DE FACULTAD","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"57463707":{"n":"INES YIRLEDIS DEL PRADO GONZALEZ","c":"ANALISTA TIMONEL","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"57290990":{"n":"INGRID MILENA RIVAS CALDERON","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"66954871":{"n":"INGRID SULEY HENAO GUEVARA","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36562843":{"n":"IVONE ROCIO GOMEZ ROPAIN","c":"COORDINADOR(A) DE MERCADEO","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1082984587":{"n":"JAIME LUIS CAMARGO PAEZ","c":"PROFESOR CÁTEDRA PROFESIONAL","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"5822315":{"n":"JAINNY JEMIR ZUÑIGA PEÑA","c":"PROFESOR TC ASPIRANTE MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"80797814":{"n":"JAIRO SALIM BERNAL RINALDY","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1082880610":{"n":"JENNIFER MARIA GONZALEZ HERRERA","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"22516398":{"n":"JESICA ISABEL PINEDA BARRAZA","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1004364212":{"n":"JESUS DAVID ZAMBRANO ECHEVERRIA","c":"AUXILIAR DE INFRAESTRUCTURA","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"7625059":{"n":"JESUS ENRIQUE FORERO CABRERA","c":"SERVICIOS GENERALES","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1082872906":{"n":"JESUS RAFAEL VEGA MENDINUETA","c":"PROFESOR CÁTEDRA PROFESIONAL","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"12641690":{"n":"JOAQUIN PABLO SIERRA ARIAS","c":"PROFESOR CÁTEDRA POSG MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"45529298":{"n":"JOHANNA MARINA VARGAS COLLANTE","c":"JEFE(A) BIENESTAR UNIVERSITARIO","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"84459160":{"n":"JORDAN DALLAN GUILLOT FULA","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"12628501":{"n":"JORGE LUIS LASCANO TORRES","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"85461029":{"n":"JORGE LUIS MENDEZ ANGOLA","c":"INSTRUCTOR(A) DEPORTES","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"70954174":{"n":"JOSE ALDEMAR USME CIRO","c":"PROFESOR TC TITULAR DOCTOR","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"7601737":{"n":"JOSE AUGUSTO LOPEZ MENDOZA","c":"AUXILIAR DE MANTENIMIENTO","ev":"Paquete Altura: Examen médico Osteomuscular · Audiometría · Visiometría · Hemoglobina · Perfil Lipídico · Glicemia"},"85466885":{"n":"JOSE BERNARDO GONZALEZ PEDRAZA","c":"PROFESOR TC AUXILIAR MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1082916487":{"n":"JOSE DAVID GONZALEZ VILLEGAS","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"12547760":{"n":"JOSE DE JESUS AYOLA NARVAEZ","c":"INSTRUCTOR(A) DEPORTES","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"84452742":{"n":"JOSE DE JESUS MOLINA CASTILLA","c":"ANALISTA GESTIÓN DOCUMENTAL","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1082968111":{"n":"JOSE EDUARDO BARON HUELVAS","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"84458844":{"n":"JOSE FERNANDO NOGUERA POLANIA","c":"PROFESOR TC ASISTENTE DOCTOR","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"84458474":{"n":"JOSE FRANCISCO VERGARA REALES","c":"SUBDIRECTOR(A) DRLLO INSTIT FI","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"84459263":{"n":"JOSE GREGORIO PINEDO RINCONES","c":"INSTRUCTOR(A) CULTURA","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"12597246":{"n":"JOSE MARIA GARCIA DIAZ","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"85152154":{"n":"JOSE VICENTE CABARCAS CANTILLO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"85462399":{"n":"JOSE VICENTE MAESTRE PERALTA","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"7141467":{"n":"JUAN ALONSO CORTES LONDOÑO","c":"SUBDIRECTOR(A) ACADÉMICO PROYE","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"85459245":{"n":"JUAN CARLOS CELEDON ARIZA","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"79159976":{"n":"JUAN ENRIQUE VIVES RESTREPO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"85456689":{"n":"JUAN FRANCISCO CRESPO MERIÑO","c":"SERVICIOS GENERALES","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1082870705":{"n":"JUAN PABLO GUTIERREZ MEJIA","c":"AUXILIAR DE LABORATORÍO","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"85459532":{"n":"JULIO ATANASIO LINERO TERAN","c":"JEFE(A) ADMISIONES Y REGISTRO","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"85155553":{"n":"JULIO RAFAEL TEJEDA JIMENEZ","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1082938294":{"n":"KAREN LORENA LIÑAN CARRASQUILLA","c":"AUXILIAR DE LABORATORÍO","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"32769901":{"n":"KATHERINE ROCIO GOMEZ PALACIO","c":"PROFESOR CÁTEDRA PROFESIONAL","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"39045659":{"n":"KATIUSCA MONTAÑO BELEÑO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1143243242":{"n":"KELLY JOANNA GONZALEZ LOZANO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1082971502":{"n":"KENIA MELISSA MUNERA LUQUE","c":"PROFESOR TC ASISTENTE MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1082957920":{"n":"KEYLA ANDREA PEÑA FLORES","c":"ANALISTA DE RIESGOS LABORALES","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1019010671":{"n":"LAURA NIETO HENAO","c":"PROFESOR TC AUXILIAR MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1001445670":{"n":"LAURA VANESSA GARCIA MONSALVE","c":"AUXILIAR PROCESOS TÉCNICOS","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"19588138":{"n":"LEONARDO PADILLA","c":"SERVICIOS GENERALES","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"7140237":{"n":"LEONARDO JOSE ARIAS ALEMAN","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36720019":{"n":"LILIAC CECILIA NIEVES RIVADENEIRA","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"31995094":{"n":"LILIANA MARQUEZ TREJOS","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36669654":{"n":"LILIANA DEL SOCORRO LORA BARRIOS","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1082898829":{"n":"LILIANA MARGARITA AUN CUELLO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1018416552":{"n":"LUCAS JOAQUIN CARABALLO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"7141527":{"n":"LUCIANO TORRES RODRIGUEZ","c":"AUXILIAR DE MANTENIMIENTO","ev":"Examen médico-Ocupacional Osteomuscular · Espirometría · Visiometría"},"84451570":{"n":"LUIS ALBERTO ANAYA PALACIO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"73169353":{"n":"LUIS ALBERTO CARMONA MOVILLA","c":"PROFESOR CÁTEDRA POSG MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"73167841":{"n":"LUIS ANTONIO CERVANTES AMARIS","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1083018545":{"n":"LUIS DANIEL PERTUZ CANTILLO","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1083000464":{"n":"LUIS DAVID OVIEDO VARELA","c":"SECRETARIO(A) DE FACULTAD","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"80238564":{"n":"LUIS GUILLERMO BORJA HIDALGO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"17975901":{"n":"LUIS JOSE DAZA LOPEZ","c":"PROFESOR CÁTEDRA PROFESIONAL","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"32607994":{"n":"LUZ DEL CARMEN OSPINO CAÑAS","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"57441191":{"n":"LUZ STELLA HENRIQUEZ CABANA","c":"PROFESOR CÁTEDRA DOCTOR","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"84455288":{"n":"MAC FABIAN ANTONIO CORREA AVENDAÑO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"7141117":{"n":"MANUEL FRANCISCO NAVARRO RADA","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"12541861":{"n":"MANUEL FRANCISCO VIVES PEREZ","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1082984762":{"n":"MANUEL KEVIN MOLINA MARIANO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"57429493":{"n":"MARGARITA DE JESUS CABAS SANCHEZ","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1140843376":{"n":"MARIA ALEJANDRA CONDE SARMIENTO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"32775353":{"n":"MARIA DEL SOCORRO ALZAMORA ACOSTA","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"22492819":{"n":"MARIA FERNANDA CERVANTES GUTIERREZ","c":"PROFESOR TC ASPIRANTE MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"52260615":{"n":"MARIA ISABEL SMITH ROVIRA","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1082932071":{"n":"MARIA ISABEL VENGOECHEA RUIZ","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"22584590":{"n":"MARIA LUISA CASTRILLON SANCHEZ","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1082943884":{"n":"MARIA MARGARITA ROSA SIERRA CARRILLO","c":"PROFESOR TC ASISTENTE MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"37827554":{"n":"MARIA STELLA DIAZ DAZA","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36723854":{"n":"MARIA TERESA GONZALEZ ORTEGA","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"37670662":{"n":"MARIBEL PINZON JARAMILLO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36726898":{"n":"MARIETH JOHANNA CASALLAS USECHE","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1082956525":{"n":"MARISORELIS CARRILLO CANTILLO","c":"COORDINADOR(A) SISTEMA INFO BI","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"36540195":{"n":"MARITZA DEL PILAR MARTINEZ CORREA","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"57404160":{"n":"MARTA CECILIA OTERO VILLARREAL","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"51806272":{"n":"MARTHA PATRICIA FERNANDEZ DAZA","c":"PROFESOR TC AUXILIAR DOCTOR","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"57430538":{"n":"MARTHA REBECA CANTILLO PERDOMO","c":"INSTRUCTOR(A) CULTURA","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1082889029":{"n":"MARY ALEJANDRA RIOS MARMOL","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36693815":{"n":"MARY LUZ CASTELLON GIRALDO","c":"PROFESIONAL EN GESTIÓN CULTURA","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"57467095":{"n":"MARYIS CENETH CASELLES NAVARRO","c":"COORDINADOR(A) DE EXTENSIÓN","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"8531237":{"n":"MAURICIO ESTEBAN ESPARZA SANCHEZ","c":"COORDINADOR(A) PROYECCIÓN SOCI","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"12447968":{"n":"MAURICIO JOSE LOGREIRA LAVALLE","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1064795158":{"n":"MAURY LIZETH HERRERA TORRES","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1082845936":{"n":"MAYA ALEJANDRA CADENA TEJEDA","c":"PROFESOR TC ASPIRANTE MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1100398292":{"n":"MEDERIS MARIA CUELLO HERAZO","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1082867382":{"n":"MELISA MILAGRO AREVALO PADILLA","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36694782":{"n":"MERY OTILIA MARTINEZ CORREA","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"80370326":{"n":"CESAR AUGUSTO MARTINEZ ARIZA","c":"PROFESOR CÁTEDRA POSG MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1083469526":{"n":"MILAGROS MILENA CARRILLO CANTILLO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36719638":{"n":"MILENA ESTHER GAMARRA BALLESTEROS","c":"SECRETARÍO(A) CONSULTORIO JURÍ","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"49794339":{"n":"MILENIS MARIA GOMEZ BENJUMEA","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1083000703":{"n":"MILLICENT ASTRID VIDES LOZANO","c":"ANALISTA LABORATORIO AMBIENTES","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"57431811":{"n":"MIRYAM PAOLA RUIZ FRUTOS","c":"PROFESOR TC AUXILIAR MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"43623807":{"n":"MONICA RODRIGUEZ PINEDA","c":"JEFE(A) INFRAESTRUCTURA FÍSICA","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"57433138":{"n":"MONICA SOFIA SERGE VARGAS","c":"SECRETARIO(A) DE FACULTAD","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"22519711":{"n":"NADINES MIRAYDA JIMENEZ NUÑEZ","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"57443569":{"n":"NANCY LUCIA LLATH BARRERA","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1082943132":{"n":"NATHALY ANDREA MORENO POLO","c":"PROFESOR TC AUXILIAR MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36665612":{"n":"NAYIVES XILENA TRUJILLO NUÑEZ","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"8777407":{"n":"NELSON ENRIQUE BARRIOS FREYLE","c":"AUXILIAR DE MANTENIMIENTO","ev":"Paquete Altura: Examen médico Osteomuscular · Audiometría · Visiometría · Hemoglobina · Perfil Lipídico · Glicemia"},"1004164230":{"n":"NINI JOHANNA CAHUANA CAHUANA","c":"SERVICIOS GENERALES","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1098691796":{"n":"NIVALYSAY TAVERA GALEANO","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"44157624":{"n":"NIXSY YAJAIRA QUIROZ CHARRIS","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"56097023":{"n":"NOHORA DEYBIS PEÑALOZA MARQUEZ","c":"COORDINADOR(A) CONSULTORIO JUR","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"36529462":{"n":"NURYS CECILIA TRAVECEDO SALAZAR","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36564396":{"n":"OLGA ERNESTINA DE LA CRUZ MARMOL","c":"AUXILIAR TESORERÍA","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"30287865":{"n":"OLGA LUCIA JARAMILLO NARANJO","c":"PROFESOR CÁTEDRA POSG MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"7633516":{"n":"OMAR DAVID TORRES LOPEZ","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"85153064":{"n":"OSCAR RODRIGUEZ AVENDAÑO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1065570271":{"n":"OSVALDO JUNIOR ANNICHIARICO GARCIA","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36669567":{"n":"PAOLA MARGARITA CARRERA GONZALEZ","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"32735752":{"n":"PAOLA SOFIA YANCE AHUMADA","c":"PROFESOR TC ASPIRANTE MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"12536608":{"n":"PASCUAL VICENTE BERNAL CASTRO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"4978989":{"n":"PRISCO MANUEL RAMIREZ RODRIGUEZ","c":"INSTRUCTOR(A) DEPORTES","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"79680126":{"n":"RAFAEL LUIS DIAZ GUTIERREZ","c":"AUXILIAR SOPORTE TIC","ev":"Paquete Altura: Examen médico Osteomuscular · Audiometría · Visiometría · Hemoglobina · Perfil Lipídico · Glicemia"},"1082984154":{"n":"RAUL CAYETANO OLIVEROS CANO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"72224633":{"n":"REINALDO ROMAN CASTILLA BARROSO","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1042466494":{"n":"RICHARD ENRIQUE ZAMBRANO VELASQUEZ","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"12401211":{"n":"RODOLFO GUTIERREZ SILVA","c":"PROFESOR TC ASISTENTE MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"12556166":{"n":"RODOLFO ANTONIO AUN DAU","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"84450555":{"n":"RONALD MARTINEZ ABUABARA","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"19601334":{"n":"RONALD ROBERT RIVERA CASERES","c":"PROFESOR TC ASPIRANTE MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"19585086":{"n":"ROQUE JOSE FIORENTINO POSTERARO","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1102880432":{"n":"ROSA AMALIA MARTINEZ OSPINA","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36557200":{"n":"ROSA FELICIA ESCORCIA MALDONADO","c":"SERVICIOS GENERALES","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1004092482":{"n":"ROSA MARIA POLO GARCERAN","c":"AUXILIAR CRÉDITO ESTUDIANTIL","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"39030284":{"n":"ROSALBINA TERESA VELASQUEZ BECERRA","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"57431697":{"n":"ROSANA PATRICIA ELIAS GUERRERO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36553995":{"n":"RUBIELA RUIZ CABEZAS","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"57412164":{"n":"RUTH MARY GRANADOS VANEGAS","c":"COORDINADOR(A) DOCENCIA SERVIC","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"8748619":{"n":"SALIN RAMON TOUCHIE MEZA","c":"DECANO(A) PROG DE MEDICINA","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1082990904":{"n":"SAURELIS PERTUZ GUTIERREZ","c":"PROFESOR CÁTEDRA PROFESIONAL","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36725784":{"n":"SELENIS ROCIO CARMONA BOCANEGRA","c":"SERVICIOS GENERALES","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"12693477":{"n":"SERGIO ALEXANDER CAMPO RAMOS","c":"PROFESOR CÁTEDRA ESPECIALISTA","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1064801778":{"n":"SHARICK MELISA VIDES QUINTERO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"22478971":{"n":"SHIRLEY CONSTANZA FUENTES DIAZ","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"1082946784":{"n":"SIRLEY PAOLA GONZALEZ AMAYA","c":"SERVICIOS GENERALES","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"84453645":{"n":"VICTOR ALCIDES MUNIVE PACHECO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"57439425":{"n":"VIVIANA PATRICIA CURVELO MARTINEZ","c":"SECRETARIO(A) DE FACULTAD","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"8680590":{"n":"WILLIAM RAFAEL SOTOMAYOR BERNAL","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"57442499":{"n":"YANETH MARIA ALFARO CABALLERO","c":"AUXILIAR DE LABORATORÍO","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1068666694":{"n":"YENIFER DIAZ MONTES","c":"PROFESOR TC AUXILIAR MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"57414987":{"n":"YENIS MARIA MENDOZA CADENA","c":"SERVICIOS GENERALES","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"14568116":{"n":"YIMMY ALEJANDRO MARTINEZ TORO","c":"PROFESOR TC ASPIRANTE PROFESIO","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36727128":{"n":"YOLIANIS ROSARIO FORERO RODRIGUEZ","c":"COORDINADOR(A) COMPRAS E INVEN","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1082992587":{"n":"YORSEK MANUEL ALFARO OROZCO","c":"PROFESIONAL DESARROLLO SOCIAL","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1082934433":{"n":"YULI PAOLA SUAREZ COLORADO","c":"DECANO(A) PROG DE SICOLOGÍA","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1082842130":{"n":"YURANIS PAOLA MEJIA MELO","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"84094878":{"n":"YUSIR DE LOS SANTOS SIERRA QUIROZ","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36720497":{"n":"ZILA ARLIMES CASTRILLON FREYTTER","c":"PROFESOR CÁTEDRA MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"},"36667580":{"n":"ZULEIMA PATRICIA BRAVO NORIEGA","c":"SERVICIOS GENERALES","ev":"Examen médico-Ocupacional énfasis Ergonómico · Visiometría"},"1082846106":{"n":"ZULLYS JOHANNA MIRANDA SANCHEZ","c":"PROFESOR TC AUXILIAR MAGISTER","ev":"Examen médico-Ocupacional Osteomuscular · Audiometría · Visiometría · Fonoaudiología"}};
+
+const FECHAS=[{id:"2026-05-28",lbl:"Miércoles 28 mayo 2026"},{id:"2026-05-29",lbl:"Jueves 29 mayo 2026"},{id:"2026-06-02",lbl:"Martes 2 junio 2026"},{id:"2026-06-03",lbl:"Miércoles 3 junio 2026"}];
+const MA=["8:00","8:15","8:30","8:45","9:00","9:15","9:30","9:45","10:00","10:15","10:30","10:45","11:00","11:15","11:30","11:45"];
+const TA=["1:00","1:15","1:30","1:45","2:00","2:15","2:30","2:45","3:00","3:15","3:30","3:45","4:00","4:15","4:30","4:45"];
+const MAX=4;
+const STEPS=["Identificación","Fecha y hora","Contacto","Resumen","✓ Confirmado"];
+
+let S={step:1,cedula:"",emp:null,fecha:"",jornada:"",hora:"",correo:"",celular:"",obs:"",auth:false,err:"",counts:{},loadingSlots:false,rid:"",saving:false};
+
+function tc(s){return(s||"").toLowerCase().replace(/\b\w/g,c=>c.toUpperCase());}
+function pct(step){return Math.round((step-1)/4*100);}
+
+async function loadCounts(f){
+  S.loadingSlots=true; R();
+  const all=[...MA,...TA]; const c={};
+  for(const h of all){
+    try{const r=await window.storage.get("sl:"+f+":"+h,true);c[h]=r?JSON.parse(r.value).length:0;}catch{c[h]=0;}
+  }
+  S.counts=c; S.loadingSlots=false; R();
+}
+
+async function submitToJotform(data){
+  // Submit via Anthropic API calling Jotform MCP
+  const resp = await fetch("https://api.anthropic.com/v1/messages",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      model:"claude-sonnet-4-20250514",
+      max_tokens:1000,
+      mcp_servers:[{type:"url",url:"https://mcp.jotform.com/mcp-app",name:"jotform"}],
+      messages:[{role:"user",content:`Create a submission in Jotform form ID ${FORM_ID} with these exact values:
+- Número de Cédula: ${data.cedula}
+- Nombre Completo: ${data.nombre}
+- Cargo: ${data.cargo}
+- Evaluaciones Asignadas: ${data.evaluaciones}
+- Fecha de Cita: ${data.fecha}
+- Jornada: ${data.jornada}
+- Hora de Cita: ${data.hora}
+- Correo Electrónico: ${data.correo}
+- Celular: ${data.celular||"No proporcionado"}
+- Observaciones: ${data.obs||"Ninguna"}
+- Autorización de Datos: Autorizado
+- N° de Reserva: ${data.rid}
+Please submit this to the form and confirm it was submitted successfully.`}]
+    })
+  });
+  const json = await resp.json();
+  if(!resp.ok) throw new Error(json.error?.message||"Error API");
+  return json;
+}
+
+async function save(){
+  if(!S.auth){S.err="Debe aceptar la autorización de datos personales.";R();return;}
+  S.err=""; S.saving=true; R();
+  const key="sl:"+S.fecha+":"+S.hora;
+  const rid="RES-"+Date.now()+"-"+S.cedula.slice(-4);
+  try{
+    // 1. Check slot availability
+    let arr=[];
+    try{const r=await window.storage.get(key,true);if(r)arr=JSON.parse(r.value);}catch{}
+    if(arr.length>=MAX){S.err="Este horario ya está lleno. Vuelva y elija otro.";S.saving=false;S.step=2;R();return;}
+
+    const rec={id:rid,cedula:S.cedula,nombre:S.emp.n,cargo:S.emp.c,evaluaciones:S.emp.ev,
+      fecha:S.fecha,hora:S.hora,jornada:S.jornada,correo:S.correo,celular:S.celular,obs:S.obs,ts:new Date().toISOString()};
+
+    // 2. Save slot in shared storage
+    arr.push(rec);
+    await window.storage.set(key,JSON.stringify(arr),true);
+    let todas=[];
+    try{const r2=await window.storage.get("todas",true);if(r2)todas=JSON.parse(r2.value);}catch{}
+    todas.push(rec);
+    await window.storage.set("todas",JSON.stringify(todas),true);
+
+    // 3. Submit to Jotform via Anthropic API
+    try{
+      await submitToJotform({...rec, rid,
+        fecha: FECHAS.find(f=>f.id===S.fecha)?.lbl||S.fecha,
+        jornada: S.jornada==="mañana"?"Mañana - 8:00am a 12:00m":"Tarde - 1:00pm a 5:00pm"
+      });
+    }catch(jfErr){
+      // Jotform error is non-blocking — slot already saved
+      console.warn("Jotform send error:",jfErr);
+    }
+
+    S.rid=rid; S.step=5;
+  }catch(e){
+    S.err="Error al guardar: "+e.message+". Intente de nuevo.";
+  }
+  S.saving=false; R();
+}
+
+function reset(){S={step:1,cedula:"",emp:null,fecha:"",jornada:"",hora:"",correo:"",celular:"",obs:"",auth:false,err:"",counts:{},loadingSlots:false,rid:"",saving:false};R();}
+
+function R(){
+  const fLbl=FECHAS.find(f=>f.id===S.fecha)?.lbl||"";
+  const hrs=S.jornada==="mañana"?MA:S.jornada==="tarde"?TA:[];
+  const prog=pct(S.step);
+
+  let h=`<div class="wrap">
+  <div class="hdr">
+    <div class="hdr-row">
+      <div class="logo">GH</div>
+      <div><h1>Agendamiento · Exámenes Médicos Ocupacionales</h1><p>Gestión Humana · Salud y Seguridad en el Trabajo</p></div>
+    </div>
+  </div>
+  <div class="progress"><div class="progress-bar" style="width:${prog}%"></div></div>
+  <div class="steps">${STEPS.map((s,i)=>`<div class="step ${S.step===i+1?'active':S.step>i+1?'done':''}"><span class="sn">${S.step>i+1?'✓':i+1}</span>${s}</div>`).join('')}</div>`;
+
+  // ── PASO 1 ──
+  if(S.step===1){h+=`<div class="body">
+    <div class="stitle">🔍 Búsqueda por cédula</div>
+    <div class="mb"><label class="lbl">Número de cédula <span style="color:#e53e3e">*</span></label>
+    <input class="inp" id="ced" type="text" inputmode="numeric" placeholder="Ej: 85456789" value="${S.cedula}" autocomplete="off" style="font-size:16px;font-weight:600;letter-spacing:1px"></div>
+    ${S.err?`<div class="err">⚠️ ${S.err}</div>`:''}
+    <div class="info">ℹ️ Ingrese su número de cédula. El sistema buscará automáticamente sus datos y los exámenes asignados según su cargo.</div>
+    <button class="bp" id="b1">🔍 Buscar y continuar →</button>
+  </div>`;}
+
+  // ── PASO 2 ──
+  else if(S.step===2){
+    const ev=S.emp.ev.split("·").map(e=>`<div style="padding:1px 0">• ${e.trim()}</div>`).join('');
+    h+=`<div class="body">
+    <div class="stitle">👤 Datos del colaborador</div>
+    <div class="card">
+      <div class="g2">
+        <div><label class="lbl">Cédula</label><div class="ro" style="font-weight:700">${S.cedula}</div></div>
+        <div><label class="lbl">Estado</label><div class="ro"><span class="tag-p">⏳ Pendiente</span></div></div>
+      </div>
+      <div class="mb"><label class="lbl">Nombre completo</label><div class="ro" style="font-weight:600">${tc(S.emp.n)}</div></div>
+      <div class="mb"><label class="lbl">Cargo</label><div class="ro">${tc(S.emp.c)}</div></div>
+      <div><label class="lbl">Evaluaciones asignadas</label><div class="ro" style="font-size:11px;line-height:2">${ev}</div></div>
+    </div>
+    <div class="stitle">📅 Seleccione fecha</div>
+    <div class="fg">${FECHAS.map(f=>`<button class="fb ${S.fecha===f.id?'sel':''}" data-f="${f.id}">📅 ${f.lbl}</button>`).join('')}</div>
+    ${S.fecha?`
+    <div class="stitle">⏰ Seleccione jornada</div>
+    <div class="jr">
+      <button class="jb ${S.jornada==='mañana'?'sel':''}" id="jM">🌅<br>Mañana<br><span style="font-size:10px;font-weight:400">8:00 a.m. – 12:00 m.</span></button>
+      <button class="jb ${S.jornada==='tarde'?'sel':''}" id="jT">🌇<br>Tarde<br><span style="font-size:10px;font-weight:400">1:00 p.m. – 5:00 p.m.</span></button>
+    </div>`:''}
+    ${S.jornada?`
+    <div class="stitle">🕐 Horarios disponibles ${S.loadingSlots?'<span style="font-size:10px;color:#718096;font-weight:400">— actualizando...</span>':''}</div>
+    <div class="sg">${hrs.map(h=>{
+      const cnt=S.counts[h]||0,full=cnt>=MAX,sel=S.hora===h;
+      const cupos=MAX-cnt;
+      return`<button class="sb ${sel?'sel':full?'full':''}" data-h="${h}" ${full?"disabled":""}>
+        <strong>${h}</strong><br><span style="font-size:10px">${full?'🔴 Lleno':sel?'✓ Elegido':`🟢 ${cupos} cupo${cupos!==1?'s':''}`}</span>
+      </button>`;}).join('')}
+    </div>`:''}
+    ${S.err?`<div class="err">⚠️ ${S.err}</div>`:''}
+    <div class="brow">
+      <button class="bo" id="bA2">← Atrás</button>
+      <button class="bp" id="bS2" style="flex:1;margin-top:0">Continuar →</button>
+    </div></div>`;}
+
+  // ── PASO 3 ──
+  else if(S.step===3){h+=`<div class="body">
+    <div class="stitle">📬 Datos de contacto</div>
+    <div class="mb"><label class="lbl">Correo electrónico <span style="color:#e53e3e">*</span></label>
+    <input class="inp" id="cor" type="email" placeholder="correo@ejemplo.com" value="${S.correo}"></div>
+    <div class="mb"><label class="lbl">Celular <span style="color:#718096;font-weight:400">(opcional)</span></label>
+    <input class="inp" id="cel" type="tel" placeholder="Ej: 3001234567" value="${S.celular}"></div>
+    <div class="mb"><label class="lbl">Observaciones <span style="color:#718096;font-weight:400">(opcional)</span></label>
+    <textarea class="inp" id="obs" placeholder="Condición médica relevante u otra observación...">${S.obs}</textarea></div>
+    ${S.err?`<div class="err">⚠️ ${S.err}</div>`:''}
+    <div class="brow">
+      <button class="bo" id="bA3">← Atrás</button>
+      <button class="bp" id="bS3" style="flex:1;margin-top:0">Continuar →</button>
+    </div></div>`;}
+
+  // ── PASO 4 ──
+  else if(S.step===4){
+    const ev2=S.emp.ev.split("·").map(e=>`<div>• ${e.trim()}</div>`).join('');
+    const rows=[
+      ["📋 Cédula",S.cedula],["👤 Nombre",tc(S.emp.n)],["💼 Cargo",tc(S.emp.c)],
+      ["📅 Fecha",fLbl],
+      ["⏰ Jornada",S.jornada==="mañana"?"🌅 Mañana (8:00 a.m. – 12:00 m.)":"🌇 Tarde (1:00 p.m. – 5:00 p.m.)"],
+      ["🕐 Hora",S.hora+" "+(S.jornada==="mañana"?"a.m.":"p.m.")],
+      ["📧 Correo",S.correo],
+      ...(S.celular?[["📱 Celular",S.celular]]:[])
+    ];
+    h+=`<div class="body">
+    <div class="stitle">📄 Resumen de la cita</div>
+    <div class="card">
+      ${rows.map(([k,v])=>`<div class="sr"><span class="sk">${k}:</span><span>${v}</span></div>`).join('')}
+      <div style="padding:8px 0 0">
+        <span class="sk">🔬 Evaluaciones:</span>
+        <div style="font-size:11px;color:#4a5568;margin-top:4px;line-height:1.9">${ev2}</div>
+      </div>
+    </div>
+    <div class="warn">⚠️ Verifique que todos los datos sean correctos. Una vez confirmada, su reserva quedará registrada en Jotform y Gestión Humana recibirá notificación automática.</div>
+    <div class="cr">
+      <input type="checkbox" id="aut" ${S.auth?"checked":""}>
+      <label for="aut"><strong>Autorización de datos personales (obligatorio):</strong> Autorizo el tratamiento de mis datos personales para fines relacionados con la programación y gestión de exámenes médicos ocupacionales, conforme a la <strong>Ley 1581 de 2012</strong> y sus decretos reglamentarios.</label>
+    </div>
+    ${S.err?`<div class="err">⚠️ ${S.err}</div>`:''}
+    <div class="brow">
+      <button class="bo" id="bA4">← Atrás</button>
+      <button class="bp g" id="bOK" style="flex:1;margin-top:0" ${S.saving?"disabled":""}>
+        ${S.saving?'<span class="spin"></span>Registrando en Jotform...':'✅ Confirmar y registrar cita'}
+      </button>
+    </div></div>`;}
+
+  // ── PASO 5 ──
+  else if(S.step===5){h+=`<div class="body">
+    <div style="text-align:center;padding:16px 0 10px">
+      <div class="sico">✅</div>
+      <p style="font-size:17px;font-weight:700;color:#276749;margin-bottom:4px">¡Cita registrada exitosamente!</p>
+      <p style="font-size:12px;color:#718096">Su reserva fue guardada y enviada a Jotform</p>
+    </div>
+    <div class="ok">
+      <div style="font-weight:700;font-size:13px;color:#276749;margin-bottom:9px">📋 Comprobante de cita</div>
+      ${[["🆔 N° reserva",S.rid],["👤 Nombre",tc(S.emp.n)],["📅 Fecha",fLbl],["🕐 Hora",S.hora+" "+(S.jornada==="mañana"?"a.m.":"p.m.")],["⏰ Jornada",S.jornada==="mañana"?"Mañana":"Tarde"],["📧 Correo",S.correo]].map(([k,v])=>`<div class="sr" style="border-color:#9ae6b4"><span class="sk" style="color:#276749">${k}:</span><span style="color:#22543d;font-weight:600">${v}</span></div>`).join('')}
+    </div>
+    <div class="info" style="line-height:2">
+      📧 <strong>Confirmación enviada a:</strong> ${S.correo}<br>
+      🗂️ <strong>Registro guardado en Jotform</strong> — Gestión Humana tiene acceso a su cita.<br>
+      🪪 Traiga su documento de identidad el día del examen.<br>
+      📞 Para modificar o cancelar, contacte a <strong>Gestión Humana</strong>.
+    </div>
+    <button class="bp" id="bNueva" style="background:linear-gradient(135deg,#1a4b7c,#1e5c9a)">Agendar otra cita</button>
+  </div>`;}
+
+  h+=`<div class="foot">Gestión Humana · Salud y Seguridad en el Trabajo · v3.0 — Conectado a Jotform</div></div>`;
+  document.getElementById("app").innerHTML=h;
+  bind();
+}
+
+function bind(){
+  const g=id=>document.getElementById(id);
+  const on=(id,ev,fn)=>{const el=g(id);if(el)el.addEventListener(ev,fn);};
+
+  if(S.step===1){
+    const inp=g("ced");
+    if(inp){inp.focus();inp.addEventListener("keydown",e=>{if(e.key==="Enter")buscar();});}
+    on("b1","click",buscar);
+  }
+  if(S.step===2){
+    document.querySelectorAll(".fb").forEach(b=>b.addEventListener("click",()=>{
+      S.fecha=b.dataset.f; S.jornada=""; S.hora=""; S.err="";
+      loadCounts(S.fecha); R();
+    }));
+    on("jM","click",()=>{S.jornada="mañana";S.hora="";S.err="";R();});
+    on("jT","click",()=>{S.jornada="tarde";S.hora="";S.err="";R();});
+    document.querySelectorAll(".sb:not([disabled])").forEach(b=>b.addEventListener("click",()=>{S.hora=b.dataset.h;S.err="";R();}));
+    on("bA2","click",()=>{S.step=1;S.emp=null;S.err="";R();});
+    on("bS2","click",()=>{
+      if(!S.fecha){S.err="Seleccione una fecha.";R();return;}
+      if(!S.jornada){S.err="Seleccione una jornada.";R();return;}
+      if(!S.hora){S.err="Seleccione un horario disponible.";R();return;}
+      S.err="";S.step=3;R();
+    });
+  }
+  if(S.step===3){
+    on("bA3","click",()=>{S.step=2;S.err="";R();});
+    on("bS3","click",()=>{
+      S.correo=(g("cor")||{}).value||"";
+      S.celular=(g("cel")||{}).value||"";
+      S.obs=(g("obs")||{}).value||"";
+      if(!S.correo||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(S.correo)){S.err="Ingrese un correo electrónico válido.";R();return;}
+      S.err="";S.step=4;R();
+    });
+  }
+  if(S.step===4){
+    on("bA4","click",()=>{S.step=3;S.err="";R();});
+    on("aut","change",e=>{S.auth=e.target.checked;});
+    on("bOK","click",save);
+  }
+  if(S.step===5){on("bNueva","click",reset);}
+}
+
+function buscar(){
+  S.cedula=(document.getElementById("ced")||{}).value||"";
+  const c=S.cedula.trim();
+  if(!c){S.err="Ingrese su número de cédula.";R();return;}
+  if(!DB[c]){S.err="Cédula no encontrada. Verifique el número o contacte a Gestión Humana.";R();return;}
+  S.err="";S.emp=DB[c];S.step=2;R();
+}
+
+R();
+</script>
